@@ -1,0 +1,124 @@
+{
+	"info": {
+		"_postman_id": "a28443c1-5f76-42f9-8568-8e338996eb94",
+		"name": "NesmaGalal",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "25106139"
+	},
+	"item": [
+		{
+			"name": "https://reqres.in/api/users?page=2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"var response = pm.response.json(),\r",
+							"responseData = response.data,\r",
+							"flag = 0;\r",
+							"\r",
+							"pm.test(\"Verify the pagination of the response\", function () {\r",
+							"    pm.expect(responseData.length).to.eql(6);\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"Verify the page number=2\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"\\\"page\\\":2\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Verify the id of users in response data\", function () {\r",
+							"    for(var i = 0; i < responseData.length; i ++){\r",
+							"        if (responseData[i].id === i + 7) {\r",
+							"            flag++;\r",
+							"        }  \r",
+							"    }\r",
+							"    pm.expect(flag).to.eql(6);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\":\"nesma@luftborn.com\",\r\n    \"password\":\"passwordsecret\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://reqres.in/api/users?page=2",
+					"protocol": "https",
+					"host": [
+						"reqres",
+						"in"
+					],
+					"path": [
+						"api",
+						"users"
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "2"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "https://reqres.in/api/users",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Successful POST request\", function () {\r",
+							"    pm.expect(pm.response.code).to.be.oneOf([201, 202]);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\t\"username\": \"nesmaGalal\",\r\n\t\"password\": \"newPassword\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://reqres.in/api/users",
+					"protocol": "https",
+					"host": [
+						"reqres",
+						"in"
+					],
+					"path": [
+						"api",
+						"users"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
